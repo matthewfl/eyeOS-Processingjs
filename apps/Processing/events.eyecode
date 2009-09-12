@@ -1,0 +1,14 @@
+<?php
+
+function Processing_on_Close ($p ='') {
+	proc('end');
+}
+
+function Processing_on_size($prams='') {
+	$data = split('|', $prams);
+	global $Window, $Frame;
+	$Window->width((int)$data[0]+2);
+	$Frame->width((int)$data[0]);
+	$Window->height((int)$data[1]+25);
+	$Frame->height((int)$data[1]);
+}

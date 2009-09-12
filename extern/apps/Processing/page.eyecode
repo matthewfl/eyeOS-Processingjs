@@ -1,0 +1,44 @@
+<?php
+$script = 'index.php?version='.CACHE_VERSION.'&extern=apps/Processing/';
+?>
+<html>
+	<head>
+		<script src="<?php echo $script ?>js/processing.min.js"></script>
+		<style>
+			canvas {
+				top: 0px;
+				left: 0px;
+				position: absolute;
+				width: 99%;
+				height: 99%;
+			}
+		</style>
+	</head>
+	<body>
+
+	<canvas id="area">
+		You need a newer web browser to use this application.<br>
+		<a href='http://www.mozilla.com/en-US/?from=sfx&amp;uid=0&amp;t=438'><img src='http://sfx-images.mozilla.org/affiliates/Buttons/Firefox3.5/96x31_blue.png' alt='Spread Firefox Affiliate Button' border='0' /></a> 
+	</canvas>
+	<script id="code" type="application/processing">
+		<?php
+			vfs('readFile', array($_GET['file']));
+		?>
+	</script>
+	<script>
+			var Process_Checknum = <?php echo $_GET['check'] ?>;
+			Process = Processing("area");
+				var Process_size = Process.size;
+			Process.size = function (w,h) {
+				Process_size(w,h);
+				try {
+					parent.sendMsg(Process_Checknum, "size", w+"|"+h);
+				} catch (e) {}
+			};
+			Process.init(document.getElementById("code").text);
+	</script>
+	</body>
+</html>
+<?php
+	
+exit;
