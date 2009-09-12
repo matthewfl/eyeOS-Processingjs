@@ -9,14 +9,12 @@ $script = 'index.php?version='.CACHE_VERSION.'&extern=apps/Processing/';
 				top: 0px;
 				left: 0px;
 				position: absolute;
-				width: 99%;
-				height: 99%;
 			}
 		</style>
 	</head>
 	<body>
 
-	<canvas id="area">
+	<canvas id="area" width="290" height="290">
 		You need a newer web browser to use this application.<br>
 		<a href='http://www.mozilla.com/en-US/?from=sfx&amp;uid=0&amp;t=438'><img src='http://sfx-images.mozilla.org/affiliates/Buttons/Firefox3.5/96x31_blue.png' alt='Spread Firefox Affiliate Button' border='0' /></a> 
 	</canvas>
@@ -26,13 +24,12 @@ $script = 'index.php?version='.CACHE_VERSION.'&extern=apps/Processing/';
 		?>
 	</script>
 	<script>
-			var Process_Checknum = <?php echo $_GET['check'] ?>;
-			Process = Processing("area");
-				var Process_size = Process.size;
+			var Process = Processing("area"),
+			Process_size = Process.size;
 			Process.size = function (w,h) {
 				Process_size(w,h);
 				try {
-					parent.sendMsg(Process_Checknum, "size", w+"|"+h);
+					parent.setTimeout('sendMsg(<?php echo $_GET['check'] ?>, "size", "'+w+'|'+h+'");',50)
 				} catch (e) {}
 			};
 			Process.init(document.getElementById("code").text);

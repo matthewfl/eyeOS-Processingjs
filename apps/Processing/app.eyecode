@@ -13,7 +13,8 @@ function Processing_run($prams='') {
 		'title' => 'Processing - '.$info['filename'],
 		'cent' => 1,
 		'width' => 302,
-		'height' => 325
+		'height' => 325,
+		'style' => CLOSE + LISTED + TITLE
 	));
 	
 	$wind->show();
