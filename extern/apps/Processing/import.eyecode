@@ -1,0 +1,5 @@
+<?php
+
+readfile(EYE_ROOT.'/'.APP_DIR.'/'.$_GET['app'].'/Processing/'.$_GET['file']);
+
+exit;

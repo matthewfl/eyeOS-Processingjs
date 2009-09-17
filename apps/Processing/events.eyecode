@@ -5,13 +5,5 @@ function Processing_on_Close ($p ='') {
 }
 
 function Processing_on_size($prams='') {
-	
-	$data = explode('|', $prams);
-	global $Window, $Frame;
-	
-	
-	$Window->setWidth(	$data[0]*1+2	);
-	$Frame->setWidth(	$data[0]*1		);
-	$Window->setHeight(	$data[1]*1+25	);
-	$Frame->setHeight(	$data[1]*1		);
+	Processing('size', $prams);
 }

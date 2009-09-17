@@ -1,0 +1,16 @@
+<?php
+
+function APPNAME_run($prams='') {
+	if(function_exists('Processing')) {
+		Processing('app', array(
+			'app' => 'APPNAME'
+		));
+	}else{
+		proc('launch', array('eyeNav', 'http://wiki.github.com/matthewfl/eyeOS-Processingjs/need'));
+		proc('end');
+	}
+}
+
+function APPNAME_end($prams='') {
+	eyeWidgets('unserialize',$prams);
+}

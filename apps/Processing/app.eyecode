@@ -1,36 +1,9 @@
 <?php
 
 function Processing_run($prams='') {
-	global $checknum;
-	$file = $prams[0];
-	$info = pathinfo($file);
-	if(!isset($file) || $file == "")
-		return proc('end');
-	
-	$wind = new Window (array (
-		'name' => 'Window',
-		'father' => 'eyeApps',
-		'title' => 'Processing - '.$info['filename'],
-		'cent' => 1,
-		'width' => 302,
-		'height' => 325,
-		'style' => CLOSE + LISTED + TITLE
+	Processing('user', array(
+		'file' => $prams[0]
 	));
-	
-	$wind->show();
-	
-	$frame = new Iframe(array(
-		'name' => 'Frame',
-		'father' => 'Window_Content',
-		'x' => 0,
-		'y' => 0,
-		'width' => 300,
-		'height' => 300,
-		'scroll' => 'no',
-		'url' => 'index.php?version='.CACHE_VERSION.'&extern=apps/Processing/page.eyecode&type=dynamic&check='.$checknum.'&file='.urlencode($file)
-	));
-	
-	$frame->show();
 }
 
 function Processing_end($prams='') {

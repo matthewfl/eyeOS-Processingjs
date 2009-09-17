@@ -1,0 +1,9 @@
+<?php
+
+function APPNAME_on_Close($prams='') {
+	proc('end');
+}
+
+function APPNAME_on_Size($prams='') {
+	Processing('size', $prams);
+}

@@ -1,0 +1,65 @@
+<?php
+
+function lib_Processing_user ($prams=array()) {
+	// $prams['file'] = user file name
+	global $checknum;
+	$file = $prams['file'];
+	$info = pathinfo($file);
+	if(!isset($file) || $file == "")
+		return proc('end');
+	Processing('Load', array(
+		'name' => 'Processing - '.$info['filename'],
+		'url' =>  'index.php?version='.CACHE_VERSION.'&extern=apps/Processing/page.eyecode&type=dynamic&t=u&check='.$checknum.'&file='.urlencode($file)
+	));
+}
+
+function lib_Processing_app ($prams=array()) {
+	// $prams['app'] = app name
+	global $checknum;
+	$title = $prams['app'];
+	if(isset($prams['name']))
+		$title = $prams['name'];
+	Processing('Load', array(
+		'name' => $title,
+		'url' =>  
+		'index.php?version='.CACHE_VERSION.'&extern=apps/Processing/page.eyecode&type=dynamic&t=a&check='.$checknum.'&app='.urlencode($prams['app'])
+	));
+}
+
+
+function lib_Processing_size($prams='') {
+	$data = explode('|', $prams);
+	global $ProWindow, $ProFrame;
+	
+	$ProWindow->setWidth(	$data[0]*1+2	);
+	$ProFrame->setWidth(	$data[0]*1		);
+	$ProWindow->setHeight(	$data[1]*1+25	);
+	$ProFrame->setHeight(	$data[1]*1		);
+}
+
+function lib_Processing_Load ($prams=array()) {
+	$wind = new Window (array (
+		'name' => 'ProWindow',
+		'father' => 'eyeApps',
+		'title' => $prams['name'],
+		'cent' => 1,
+		'width' => 302,
+		'height' => 325,
+		'style' => CLOSE + LISTED + TITLE
+	));
+	
+	$wind->show();
+	
+	$frame = new Iframe(array(
+		'name' => 'ProFrame',
+		'father' => 'ProWindow_Content',
+		'x' => 0,
+		'y' => 0,
+		'width' => 300,
+		'height' => 300,
+		'scroll' => 'no',
+		'url' => $prams['url']
+	));
+	
+	$frame->show();
+}

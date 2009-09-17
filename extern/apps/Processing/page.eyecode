@@ -20,12 +20,26 @@ $script = 'index.php?version='.CACHE_VERSION.'&extern=apps/Processing/';
 	</canvas>
 	<script id="code" type="application/processing">
 		<?php
-			vfs('readFile', array($_GET['file']));
+			if($_GET['t'] == 'u') { // user
+				vfs('readFile', array($_GET['file']));
+			} else if($_GET['t'] == 'a') { // app
+				readfile(EYE_ROOT.'/'.APP_DIR.'/'.$_GET['app'].'/Processing/main.pde');
+			}
+			
 		?>
 	</script>
 	<script>
 			var Process = Processing("area"),
 			Process_size = Process.size;
+			<?php if($_GET['t'] == 'a') { ?>
+			
+			var Process_import = Process.import,
+			Process_import_path = "<?php echo 'index.php?version='.CACHE_VERSION.'&extern=apps/Processing/import.eyecode&type=dynamic&app='.$_GET['app'].'&file='; ?>";
+			Process.import = function (p) {
+				Process_import(Process_import_path+p);
+			};
+			
+			<?php } ?>
 			Process.size = function (w,h) {
 				Process_size(w,h);
 				try {
